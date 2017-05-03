@@ -1,3 +1,4 @@
+use deadmouse;
 
 drop table if exists pulse;
 drop table if exists initiative_element;
