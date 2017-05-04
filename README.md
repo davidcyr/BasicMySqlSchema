@@ -16,5 +16,6 @@ cd BasicMySqlSchema/
  mysql -h dbinstance.cbj5rx4486o4.us-east-1.rds.amazonaws.com -P 3306 -u root --password=replaceMe -v < 0100_create_tables.sql > 0100.out
 
  mysql -h dbinstance.cbj5rx4486o4.us-east-1.rds.amazonaws.com -P 3306 -u root --password=replaceMe -v < 0200_create_user_and_grants.sql > 0200.out
+ mysql -h dbinstance.cbj5rx4486o4.us-east-1.rds.amazonaws.com -P 3306 -u root --password=replaceMe -v < 1000_TestOrg_Population.sql > 1000.out
 
 
