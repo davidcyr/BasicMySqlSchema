@@ -1,5 +1,6 @@
 use deadmouse;
 
+drop user "dmdev"@"%"; 
 create user "dmdev"@"%" identified by "pa55word";
 
 

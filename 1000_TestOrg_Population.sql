@@ -30,60 +30,50 @@ delete from element where org_id = @org;
 delete from organization where org_id = @org;
 
 
-insert into organization (org_code, org_name) values ('JNK','Dev Test Organization');
+insert into organization (org_code, org_name, status) values ('JNK','Dev Test Organization', 'ACTIVE');
+set @org = LAST_INSERT_ID();
 
-select (@org := org_id) as org_id from organization where org_code='JNK';
 
 insert into element (org_id, element_name) values (@org, 'Budget');
-select (@eBudget := element_id) from element as element_id where org_id = @org AND element_name = 'Budget';
+set @eBudget = LAST_INSERT_ID();
 
 insert into element (org_id, element_name) values (@org, 'Schedule');
-select (@eSchedule := element_id) from element as element_id where org_id = @org AND element_name = 'Schedule';
+set @eSchedule = LAST_INSERT_ID();
 
 insert into element (org_id, element_name) values (@org, 'Quality');
-select (@eQuality := element_id) from element as element_id where org_id = @org AND element_name = 'Quality';
+set @eQuality = LAST_INSERT_ID();
 
 insert into element (org_id, element_name) values (@org, 'Scope');
-select (@eScope := element_id) from element as element_id where org_id = @org AND element_name = 'Scope';
+set @eScope = LAST_INSERT_ID();
 
 insert into element (org_id, element_name) values (@org, 'Team');
-select (@eTeam := element_id) from element as element_id where org_id = @org AND element_name = 'Team';
+set @eTeam = LAST_INSERT_ID();
 
 insert into element (org_id, element_name) values (@org, 'Client');
-select (@eClient := element_id) from element as element_id where org_id = @org AND element_name = 'Client';
+set @eClient = LAST_INSERT_ID();
 
 
-insert into client (org_id, client_name) values ( @org, 'CLIENT A');
-insert into client (org_id, client_name) values ( @org, 'CLIENT B');
-insert into client (org_id, client_name) values ( @org, 'CLIENT C');
+insert into client (org_id, client_name, status) values ( @org, 'CLIENT A', 'ACTIVE');
+set @clientA = LAST_INSERT_ID();
 
-select (@clientA := client_id) as client_id from client where org_id = @org AND client_name = 'CLIENT A';
-select (@clientB := client_id) as client_id from client where org_id = @org AND client_name = 'CLIENT B';
-select (@clientC := client_id) as client_id from client where org_id = @org AND client_name = 'CLIENT C';
+insert into client (org_id, client_name, status) values ( @org, 'CLIENT B', 'ACTIVE');
+set @clientB = LAST_INSERT_ID();
 
-insert into initiative (org_id, client_id, initiative_name) values ( @org, @clientA, 'HAPPY FROG');
-select (@initiativeA1 := initiative_id) as initiative_id from initiative 
-	where org_id = @org AND 
-	client_id = @clientA AND
-	initiative_name ='HAPPY FROG';
+insert into client (org_id, client_name, status) values ( @org, 'CLIENT C', 'ACTIVE');
+set @clientC = LAST_INSERT_ID();
 
-insert into initiative (org_id, client_id, initiative_name) values ( @org, @clientA, 'DEAD MOUSE');
-select (@initiativeA2 := initiative_id) as initiative_id from initiative 
-	where org_id = @org AND 
-	client_id = @clientA AND
-	initiative_name ='DEAD MOUSE';
 
-insert into initiative (org_id, client_id, initiative_name) values ( @org, @clientA, 'QUICK GOOSE');
-select (@initiativeA3 := initiative_id) as initiative_id from initiative 
-	where org_id = @org AND 
-	client_id = @clientA AND
-	initiative_name ='QUICK GOOSE';
+insert into initiative (org_id, client_id, initiative_name, status) values ( @org, @clientA, 'HAPPY FROG', 'ACTIVE');
+set @initiativeA1 = LAST_INSERT_ID();
 
-insert into initiative (org_id, client_id, initiative_name) values ( @org, @clientB, 'KOROSENAI');
-select (@initiativeB1 := initiative_id) as initiative_id from initiative 
-	where org_id = @org AND 
-	client_id = @clientB AND
-	initiative_name ='KOROSENAI';
+insert into initiative (org_id, client_id, initiative_name, status) values ( @org, @clientA, 'DEAD MOUSE', 'ACTIVE');
+set @initiativeA2 = LAST_INSERT_ID();
+
+insert into initiative (org_id, client_id, initiative_name, status) values ( @org, @clientA, 'QUICK GOOSE', 'ACTIVE');
+set @initiativeA3 = LAST_INSERT_ID();
+
+insert into initiative (org_id, client_id, initiative_name, status) values ( @org, @clientB, 'KOROSENAI', 'ACTIVE');
+set @initiativeB1 = LAST_INSERT_ID();
 
 insert into initiative_element (org_id, initiative_id, element_id) values (@org, @initiativeA1, @eBudget);
 insert into initiative_element (org_id, initiative_id, element_id) values (@org, @initiativeA1, @eSchedule);

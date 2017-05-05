@@ -6,11 +6,24 @@ drop table if exists element;
 drop table if exists initiative;
 drop table if exists client;
 drop table if exists organization;
+drop table if exists activation_status;
+
+create table activation_status (
+	status_code varchar(10)	not null,
+        unique key ix_activation_status (status_code)
+);
+
+insert into activation_status values ('ACTIVE');
+insert into activation_status values ('INACTIVE');
 
 create table organization (
 	org_id integer 			auto_increment,
 	org_code varchar(10)		not null,
 	org_name varchar(50)		not null,	
+	status varchar(10)		not null,
+	created_by_user varchar(50),
+	created_ts timestamp			default CURRENT_TIMESTAMP,
+	foreign key (status) references activation_status (status_code),
 	unique key ix_org_code (org_code),
 	unique key ix_org_name (org_name),
 	primary key (org_id)
@@ -20,6 +33,10 @@ create table client (
 	org_id integer,
 	client_id integer			auto_increment,
 	client_name varchar(50)			not null,
+	status varchar(10)		not null,
+	created_by_user varchar(50),
+	created_ts timestamp			default CURRENT_TIMESTAMP,
+	foreign key (status) references activation_status (status_code),
 	foreign key (org_id) references organization (org_id),
 	unique key ix_client_id (client_id),
 	primary key (org_id, client_id)
@@ -30,6 +47,10 @@ create table initiative (
 	client_id integer,
 	initiative_id integer			auto_increment,
 	initiative_name varchar(50)		not null,
+	status varchar(10)		not null,
+	created_by_user varchar(50),
+	created_ts timestamp			default CURRENT_TIMESTAMP,
+	foreign key (status) references activation_status (status_code),
 	foreign key (org_id) references organization (org_id),
 	foreign key (client_id) references client (client_id),
         unique key ix_initiative_id (initiative_id),
